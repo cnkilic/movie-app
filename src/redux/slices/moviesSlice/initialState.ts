@@ -1,12 +1,5 @@
 import { AsyncStatus } from "../../../constants/common";
-
-export type Movies = {
-  Title: string;
-  Year: string;
-  imdbID: string;
-  Type: "movie" | "series" | "episodes";
-  Poster: string;
-}[];
+import { Movies } from "../../../types/movies.ts";
 
 export interface MovieSliceInitialState {
   movies: Movies | null;
