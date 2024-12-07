@@ -6,9 +6,9 @@ import NotFoundPage from './pages/NotFoundPage/NotFoundPage'
 import HomePage from './pages/HomePage/HomePage'
 
 import './App.css'
+import ReduxProvider from './redux/ReduxProvider'
 
 function App() {
-  console.log("first")
   const router =
     <BrowserRouter>
       <Routes>
@@ -21,9 +21,9 @@ function App() {
 
   return (
     <React.StrictMode>
-      {/* reduxProvider */}
-
-      {router}
+      <ReduxProvider>
+        {router}
+      </ReduxProvider>
     </React.StrictMode>
   )
 }

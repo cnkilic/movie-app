@@ -1,10 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import movieSlicesInitialState from "./initialState";
+import movieDetailsInitialState from "./initialState";
 
-export const moviesSlice = createSlice({
-  name: "movies",
-  initialState: movieSlicesInitialState,
+export const movieDetailsSlice = createSlice({
+  name: "movieDetail",
+  initialState: movieDetailsInitialState,
   reducers: {
     // Use the PayloadAction type to declare the contents of `action.payload`
     // incrementByAmount: (state, action: PayloadAction<number>) => {
@@ -15,4 +15,4 @@ export const moviesSlice = createSlice({
 
 // export const {incrementByAmount } = moviesSlice.actions;
 
-export default moviesSlice.reducer;
+export default movieDetailsSlice.reducer;
