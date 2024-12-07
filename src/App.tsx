@@ -8,6 +8,7 @@ import HomePage from './pages/HomePage/HomePage'
 import './App.css'
 
 function App() {
+  console.log("first")
   const router =
     <BrowserRouter>
       <Routes>
@@ -21,6 +22,7 @@ function App() {
   return (
     <React.StrictMode>
       {/* reduxProvider */}
+
       {router}
     </React.StrictMode>
   )
