@@ -1,14 +1,18 @@
 import { AsyncStatus } from "../../../constants/common";
-import { Movies } from "../../../types/movies.ts";
+import { Movies } from "../../../types/types.ts";
 
 export interface MovieSliceInitialState {
-  movies: Movies | null;
-  moviesLoading: AsyncStatus;
+  movies: Movies | undefined;
+  moviesStatus: AsyncStatus;
+  moviesError: string | undefined;
+  totalResults: string | undefined;
 }
 
 const movieSliceInitialState: MovieSliceInitialState = {
-  movies: null,
-  moviesLoading: AsyncStatus.Idle,
+  movies: undefined,
+  moviesStatus: AsyncStatus.Idle,
+  moviesError: undefined,
+  totalResults: undefined,
 };
 
 export default movieSliceInitialState;
