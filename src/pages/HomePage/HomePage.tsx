@@ -1,7 +1,4 @@
 import { useState, useEffect, } from 'react'
-import { useAppSelector } from '../../redux/hooks'
-import { movieAppApi } from '../../api'
-
 
 import {
     Container,
@@ -21,43 +18,27 @@ import {
 } from "@mui/material";
 
 import "./HomePage.scss";
-import { Movies } from '../../types/movies';
+
+import { fetchMoviesThunk } from '../../redux/slices';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { AsyncStatus } from '../../constants/common';
+import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
 
 function HomePage() {
-    // const { movies, moviesLoading } = useAppSelector(state => state.movies)
-    // console.log("🚀 ~ HomePage ~ moviesLoading:", moviesLoading)
-    // console.log("🚀 ~ HomePage ~ movies:", movies)
+    const dispatch = useAppDispatch()
+    const { movies, moviesStatus, moviesError, totalResults } = useAppSelector(state => state.movies)
 
-    const [movies, setMovies] = useState<Movies>([]);
-    const [searchTerm, setSearchTerm] = useState("Pokemon");
+    const [searchString, setSearchString] = useState("Pokemon");
     const [year, setYear] = useState("");
-    const [type, setType] = useState("movie");
-
-    const fetchMovies = async () => {
-        try {
-            const moviesData = await movieAppApi.getMovies({
-                searchString: "pokemon",
-                page: "1",
-                type: "movie",
-                year: "2017"
-            })
-
-            console.log("🚀 ~ fetchMovies ~ moviesData:", moviesData)
-            setMovies(moviesData.Search || []);
-        } catch (error) {
-            console.error("Error fetching movies:", error);
-        }
-    }
-
-
+    const [type, setType] = useState("");
 
     useEffect(() => {
-        fetchMovies()
+        dispatch(fetchMoviesThunk({ searchString, year, type, page: "1" }))
     }, [])
 
-
     const handleSearch = () => {
-        fetchMovies();
+        console.log("first ")
+        dispatch(fetchMoviesThunk({ searchString, year, type, page: "1" }))
     };
 
     return (
@@ -67,8 +48,8 @@ function HomePage() {
                 <TextField
                     label="Search"
                     variant="outlined"
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
+                    value={searchString}
+                    onChange={(e) => setSearchString(e.target.value)}
                     fullWidth
                 />
                 <FormControl fullWidth>
@@ -99,27 +80,49 @@ function HomePage() {
                     Search
                 </Button>
             </div>
-            <TableContainer component={Paper}>
-                <Table>
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>Name</TableCell>
-                            <TableCell>Release Date</TableCell>
-                            <TableCell>IMDb ID</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {movies.map((movie) => (
-                            <TableRow key={movie.imdbID}>
-                                <TableCell>{movie.Title}</TableCell>
-                                <TableCell>{movie.Year}</TableCell>
-                                <TableCell>{movie.imdbID}</TableCell>
+
+            {movies && totalResults && moviesStatus !== AsyncStatus.Loading ?
+                (<TableContainer component={Paper}>
+                    <Table>
+                        <TableHead>
+                            <TableRow>
+                                <TableCell>Name</TableCell>
+                                <TableCell>Release Date</TableCell>
+                                <TableCell>IMDb ID</TableCell>
+                                <TableCell>Type</TableCell>
                             </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-            </TableContainer>
+                        </TableHead>
+
+                        <TableBody>
+                            {movies?.length > 0 ?
+                                (
+                                    movies.map((movie) => (
+                                        <TableRow key={movie.imdbID}>
+                                            <TableCell>{movie.Title}</TableCell>
+                                            <TableCell>{movie.Year}</TableCell>
+                                            <TableCell>{movie.imdbID}</TableCell>
+                                            <TableCell>{movie.Type}</TableCell>
+                                        </TableRow>
+                                    ))
+                                )
+                                :
+                                <div className='no-data-warning'>
+                                    There is no data with this filter selection
+                                </div>
+                            }
+                        </TableBody>
+
+                    </Table>
+                </TableContainer>)
+                :
+                (<div className='error-message'>
+                    {`${moviesError || "Some Error occured please refresh page"}`}
+                </div>)
+            }
+            {moviesStatus === AsyncStatus.Loading && <LoadingSpinner />}
+
         </Container>
+
     )
 }
 

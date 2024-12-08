@@ -21,7 +21,7 @@
     }
 
     .search-button {
-      flex: 0 1 150px;
+      width: 150px;
     }
   }
 
@@ -44,5 +44,14 @@
         background-color: #f5f5f5;
       }
     }
+
+    .no-data-warning {
+      padding: 30px;
+    }
+  }
+
+  .error-message {
+    background-color: rgb(249, 174, 174);
+    color: rgba(0, 0, 0, 0.87);
   }
 }
