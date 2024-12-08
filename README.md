@@ -45,8 +45,8 @@ Follow these steps to set up the project locally:
 1. **Clone the Repository**:
 
    ```bash
-   git clone https://github.com/your-username/movie-explorer.git
-   cd movie-explorer
+   git clone https://github.com/cnkilic/movie-app.git
+   cd movie-app
    ```
 
 2. **Install Dependencies**:
