@@ -1,5 +1,4 @@
 import Axios from "axios";
-import IAxiosInstance from "./axios-instance.interface";
 
 const axios = Axios.create({
   baseURL: "http://www.omdbapi.com",
@@ -7,7 +6,7 @@ const axios = Axios.create({
   headers: {
     "Content-Type": "application/json",
   },
-}) as IAxiosInstance;
+});
 
 const apiKey = import.meta.env.VITE_OMDB_API_KEY;
 

@@ -22,7 +22,7 @@ export const movieAppApi = {
     year?: string;
     page?: string;
   }) => {
-    const response = await axios.get<MoviesResponse>("/", {
+    const response = await axios.get<MoviesResponseData>("/", {
       params: {
         s: params.searchString || "",
         type: params.type || "",
@@ -35,7 +35,7 @@ export const movieAppApi = {
   },
 
   getMovieDetails: async (params: { imdbId: string }) => {
-    const response = await axios.get<MoviesDetailsResponse>("/", {
+    const response = await axios.get<Movie>("/", {
       params: {
         i: params.imdbId,
       },

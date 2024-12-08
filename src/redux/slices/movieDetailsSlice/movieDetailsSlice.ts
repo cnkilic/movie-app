@@ -10,7 +10,6 @@ export const fetchMovieByImdbIdThunk = createAsyncThunk(
     const response = await movieAppApi.getMovieDetails({
       imdbId: searchParams.imdbId,
     });
-
     return response;
   }
 );
