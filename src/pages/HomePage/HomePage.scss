@@ -1,11 +1,16 @@
 .app-container {
   padding: 20px;
   text-align: center;
+  background-size: cover;
+  background-attachment: fixed; /* Keeps the image static while scrolling */
+  background-position: center;
+  min-height: 100vh;
+  color: #e0e0e0; /* Light text for contrast */
 
   h1 {
-    font-size: 2rem;
+    font-size: 2.5rem;
     margin-bottom: 20px;
-    color: #1976d2;
+    color: #42a5f5; /* Vibrant accent color */
   }
 
   .search-container {
@@ -14,20 +19,41 @@
     gap: 15px;
     margin-bottom: 30px;
 
-    .MuiSelect-select {
-      display: flex;
-    }
-
     .MuiTextField-root,
     .MuiFormControl-root {
       flex: 1;
       min-width: 200px;
+      border-radius: 8px;
+      color: #e0e0e0;
+
+      .MuiInputBase-input {
+        color: #e0e0e0; /* Input text color */
+      }
+
+      .MuiFormLabel-colorPrimary {
+        color: #e0e0e0; /* Input text color */
+      }
+
+      .MuiOutlinedInput-notchedOutline {
+        border-color: #42a5f5; /* Accent color */
+      }
+
+      .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+        border-color: #90caf9; /* Slightly lighter accent on hover */
+      }
     }
 
     .search-button {
       width: 150px;
       height: 56px;
+      background-color: #42a5f5;
+      color: #fff;
       cursor: pointer;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: #64b5f6;
+      }
 
       &.Mui-disabled {
         background-color: #9e9e9e;
@@ -36,8 +62,13 @@
     }
 
     .selectLabel {
-      background-color: #ffff;
+      color: #e0e0e0;
+      background-color: transparent;
       padding-inline: 10px;
+    }
+
+    .MuiSelect-select {
+      color: #e0e0e0; /* Dropdown text color */
     }
   }
 
@@ -47,27 +78,32 @@
     table {
       min-width: 100%;
       th {
-        background-color: #1976d2;
-        color: white;
+        background-color: #424242; /* Dark table header */
+        color: #e0e0e0;
         font-weight: bold;
       }
 
       td {
-        color: #333;
+        color: #5a5a5a;
       }
 
       tr:hover {
-        background-color: #f5f5f5;
+        background-color: #b8b8b8; /* Slightly lighter on hover */
       }
     }
 
     .no-data-warning {
       padding: 30px;
+      color: #ff5252; /* Highlight warning in a vibrant red */
     }
   }
 
   .error-message {
-    background-color: rgb(249, 174, 174);
-    color: rgba(0, 0, 0, 0.87);
+    background-color: rgba(255, 69, 58, 0.2); /* Semi-transparent red */
+    color: rgba(255, 69, 58, 0.9); /* Stronger red for text */
+    padding: 10px 20px;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    margin-top: 20px;
   }
 }
