@@ -22,6 +22,18 @@
 
     .search-button {
       width: 150px;
+      height: 56px;
+      cursor: pointer;
+
+      &.Mui-disabled {
+        background-color: #9e9e9e;
+        cursor: not-allowed;
+      }
+    }
+
+    .selectLabel {
+      background-color: #ffff;
+      padding-inline: 10px;
     }
   }
 

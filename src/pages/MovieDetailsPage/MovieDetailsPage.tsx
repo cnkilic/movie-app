@@ -26,8 +26,6 @@ function MovieDetailPage() {
         (state) => state.movieDetail
     );
 
-    console.log("🚀 ~ MovieDetailPage ~ movieDetails:", movieDetails)
-
     useEffect(() => {
         if (imdbId) {
             dispatch(fetchMovieByImdbIdThunk({ imdbId }));

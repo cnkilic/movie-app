@@ -17,6 +17,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { AsyncStatus } from '../../constants/common';
 import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
 import MovieTable from '../../components/MovieTable/MovieTable';
+import useSubmitState from '../../hooks/useSubmitState';
 
 function HomePage() {
     const dispatch = useAppDispatch()
@@ -27,13 +28,14 @@ function HomePage() {
     const [type, setType] = useState<string>("");
     const [currentPage, setCurrentPage] = useState<string>("0");
 
+    const { isButtonDisabled, warning } = useSubmitState(searchString);
+
     useEffect(() => {
         dispatch(fetchMoviesThunk({ searchString, year, type, page: String(Number(currentPage) + 1) }))
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentPage])
 
     const handleSearch = () => {
-        console.log("first ")
         dispatch(fetchMoviesThunk({ searchString, year, type, page: "1" }))
     };
 
@@ -43,13 +45,16 @@ function HomePage() {
             <div className="search-container">
                 <TextField
                     label="Search"
+                    required
                     variant="outlined"
                     value={searchString}
                     onChange={(e) => setSearchString(e.target.value)}
                     fullWidth
+                    error={!!warning}
+                    helperText={warning}
                 />
                 <FormControl fullWidth>
-                    <InputLabel id="type-select-label">Type</InputLabel>
+                    <InputLabel className='selectLabel' id="type-select-label">Type</InputLabel>
                     <Select
                         labelId="type-select-label"
                         value={type}
@@ -72,6 +77,7 @@ function HomePage() {
                     color="primary"
                     onClick={handleSearch}
                     className="search-button"
+                    disabled={isButtonDisabled}
                 >
                     Search
                 </Button>
