@@ -4,13 +4,6 @@ import {
     Container,
     TextField,
     Button,
-    Table,
-    TableBody,
-    TableCell,
-    TableContainer,
-    TableHead,
-    TableRow,
-    Paper,
     Select,
     MenuItem,
     InputLabel,
@@ -23,18 +16,21 @@ import { fetchMoviesThunk } from '../../redux/slices';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { AsyncStatus } from '../../constants/common';
 import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
+import MovieTable from '../../components/MovieTable/MovieTable';
 
 function HomePage() {
     const dispatch = useAppDispatch()
     const { movies, moviesStatus, moviesError, totalResults } = useAppSelector(state => state.movies)
 
-    const [searchString, setSearchString] = useState("Pokemon");
-    const [year, setYear] = useState("");
-    const [type, setType] = useState("");
+    const [searchString, setSearchString] = useState<string>("Pokemon");
+    const [year, setYear] = useState<string>("");
+    const [type, setType] = useState<string>("");
+    const [currentPage, setCurrentPage] = useState<string>("0");
 
     useEffect(() => {
-        dispatch(fetchMoviesThunk({ searchString, year, type, page: "1" }))
-    }, [])
+        dispatch(fetchMoviesThunk({ searchString, year, type, page: String(Number(currentPage) + 1) }))
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [currentPage])
 
     const handleSearch = () => {
         console.log("first ")
@@ -80,51 +76,20 @@ function HomePage() {
                     Search
                 </Button>
             </div>
+            {moviesStatus !== AsyncStatus.Loading
+                ? movies && totalResults ?
+                    <MovieTable movies={movies} setCurrentPage={setCurrentPage} currentPage={currentPage} totalResults={totalResults} />
+                    :
+                    (<div className='error-message'>
+                        {`${moviesError || "Some Error occured please refresh page"}`}
+                    </div>)
 
-            {movies && totalResults && moviesStatus !== AsyncStatus.Loading ?
-                (<TableContainer component={Paper}>
-                    <Table>
-                        <TableHead>
-                            <TableRow>
-                                <TableCell>Name</TableCell>
-                                <TableCell>Release Date</TableCell>
-                                <TableCell>IMDb ID</TableCell>
-                                <TableCell>Type</TableCell>
-                            </TableRow>
-                        </TableHead>
-
-                        <TableBody>
-                            {movies?.length > 0 ?
-                                (
-                                    movies.map((movie) => (
-                                        <TableRow key={movie.imdbID}>
-                                            <TableCell>{movie.Title}</TableCell>
-                                            <TableCell>{movie.Year}</TableCell>
-                                            <TableCell>{movie.imdbID}</TableCell>
-                                            <TableCell>{movie.Type}</TableCell>
-                                        </TableRow>
-                                    ))
-                                )
-                                :
-                                <div className='no-data-warning'>
-                                    There is no data with this filter selection
-                                </div>
-                            }
-                        </TableBody>
-
-                    </Table>
-                </TableContainer>)
-                :
-                (<div className='error-message'>
-                    {`${moviesError || "Some Error occured please refresh page"}`}
-                </div>)
+                : <LoadingSpinner />
             }
-            {moviesStatus === AsyncStatus.Loading && <LoadingSpinner />}
 
-        </Container>
+        </Container >
 
     )
 }
 
 export default HomePage
-
