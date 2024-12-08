@@ -49,7 +49,7 @@ const MovieTable = ({ movies, setCurrentPage, currentPage, totalResults }: IMovi
           {movies?.length > 0 ?
             (
               movies.map((movie) => (
-                <TableRow key={movie.imdbID} onClick={() => handleRowSelect(movie.imdbID)}>
+                <TableRow style={{ cursor: "pointer" }} key={movie.imdbID} onClick={() => handleRowSelect(movie.imdbID)}>
                   <TableCell>{movie.Title}</TableCell>
                   <TableCell>{movie.Year}</TableCell>
                   <TableCell>{movie.imdbID}</TableCell>

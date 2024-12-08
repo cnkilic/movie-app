@@ -1,0 +1,23 @@
+.movie-detail-container {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+}
+
+.movie-detail-card {
+  max-width: 1000px;
+  width: 100%;
+  padding: 20px;
+  box-shadow: 0 20px 30px rgba(0, 0, 0, 0.5);
+}
+
+.movie-poster {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.movie-detail-card .MuiCardContent-root {
+  display: flex;
+  flex-direction: column;
+}
