@@ -11,6 +11,10 @@ export type MoviesResponse = {
   data: MoviesResponseData;
 };
 
+export type MoviesDetailsResponse = {
+  data: Movie;
+};
+
 export const movieAppApi = {
   getMovies: async (params: {
     searchString: string;
@@ -31,12 +35,12 @@ export const movieAppApi = {
   },
 
   getMovieDetails: async (params: { imdbId: string }) => {
-    const response = await axios.get<Movie>("/", {
+    const response = await axios.get<MoviesDetailsResponse>("/", {
       params: {
         i: params.imdbId,
       },
     });
 
-    return response;
+    return response.data;
   },
 };
