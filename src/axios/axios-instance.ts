@@ -9,10 +9,10 @@ const axios = Axios.create({
   },
 }) as IAxiosInstance;
 
+const apiKey = import.meta.env.VITE_OMDB_API_KEY;
+
 axios.interceptors.request.use(
   (config) => {
-    const apiKey = "76c39e1d";
-
     if (!config.params) {
       config.params = {};
     }

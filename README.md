@@ -60,7 +60,7 @@ Follow these steps to set up the project locally:
    - Obtain an API key from [OMDb API](http://www.omdbapi.com/apikey.aspx).
    - Create a `.env` file in the root directory and add your API key:
      ```env
-     REACT_APP_OMDB_API_KEY=your_api_key_here
+     VITE_OMDB_API_KEY=your_api_key_here
      ```
 
 4. **Run the Application**:
