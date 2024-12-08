@@ -2,6 +2,8 @@
 
 **Movie Explorer** is a responsive Single Page Application (SPA) that allows users to search, filter, and explore detailed information about movies, TV series, and episodes. This application is built with modern web technologies including React, Redux, TypeScript, SCSS, and Material UI.
 
+- **Live App URl**: https://movie0-app.netlify.app/
+
 ---
 
 ## Table of Contents
