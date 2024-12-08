@@ -1,12 +1,14 @@
 import axios from "../axios/axios-instance";
-import { Movie } from "../types/movieDetails";
-import { Movies } from "../types/movies";
+import { Movie } from "../types/types";
+import { Movies } from "../types/types";
 
-type getMoviesResponse = {
-  data: {
-    totalResults: string;
-    Search: Movies;
-  };
+export type MoviesResponseData = {
+  totalResults: string;
+  Search: Movies;
+  Error?: string;
+};
+export type MoviesResponse = {
+  data: MoviesResponseData;
 };
 
 export const movieAppApi = {
@@ -16,7 +18,7 @@ export const movieAppApi = {
     year?: string;
     page?: string;
   }) => {
-    const response = await axios.get<getMoviesResponse>("/", {
+    const response = await axios.get<MoviesResponse>("/", {
       params: {
         s: params.searchString || "",
         type: params.type || "",
