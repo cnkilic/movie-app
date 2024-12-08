@@ -12,8 +12,7 @@
 4. [Usage](#usage)
 5. [API Reference](#api-reference)
 6. [Folder Structure](#folder-structure)
-7. [Screenshots](#screenshots)
-8. [License](#license)
+7. [License](#license)
 
 ---
 
