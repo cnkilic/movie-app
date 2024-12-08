@@ -6,6 +6,11 @@ export interface MovieSliceInitialState {
   moviesStatus: AsyncStatus;
   moviesError: string | undefined;
   totalResults: string | undefined;
+  searchString: string;
+  type: string;
+  year: string;
+  currentPage: string;
+  selectedMovieImdbId: string | null;
 }
 
 const movieSliceInitialState: MovieSliceInitialState = {
@@ -13,6 +18,11 @@ const movieSliceInitialState: MovieSliceInitialState = {
   moviesStatus: AsyncStatus.Idle,
   moviesError: undefined,
   totalResults: undefined,
+  searchString: "Pokemon",
+  type: "",
+  year: "",
+  currentPage: "0",
+  selectedMovieImdbId: null,
 };
 
 export default movieSliceInitialState;

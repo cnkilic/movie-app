@@ -14,6 +14,10 @@
     gap: 15px;
     margin-bottom: 30px;
 
+    .MuiSelect-select {
+      display: flex;
+    }
+
     .MuiTextField-root,
     .MuiFormControl-root {
       flex: 1;

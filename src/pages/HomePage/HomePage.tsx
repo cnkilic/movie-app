@@ -1,4 +1,4 @@
-import { useState, useEffect, } from 'react'
+import { useEffect, } from 'react'
 
 import {
     Container,
@@ -12,7 +12,7 @@ import {
 
 import "./HomePage.scss";
 
-import { fetchMoviesThunk } from '../../redux/slices';
+import { fetchMoviesThunk, setSearchString, setType, setYear } from '../../redux/slices';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { AsyncStatus } from '../../constants/common';
 import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
@@ -21,12 +21,7 @@ import useSubmitState from '../../hooks/useSubmitState';
 
 function HomePage() {
     const dispatch = useAppDispatch()
-    const { movies, moviesStatus, moviesError, totalResults } = useAppSelector(state => state.movies)
-
-    const [searchString, setSearchString] = useState<string>("Pokemon");
-    const [year, setYear] = useState<string>("");
-    const [type, setType] = useState<string>("");
-    const [currentPage, setCurrentPage] = useState<string>("0");
+    const { movies, moviesStatus, moviesError, totalResults, searchString, type, year, currentPage } = useAppSelector(state => state.movies)
 
     const { isButtonDisabled, warning } = useSubmitState(searchString);
 
@@ -48,7 +43,7 @@ function HomePage() {
                     required
                     variant="outlined"
                     value={searchString}
-                    onChange={(e) => setSearchString(e.target.value)}
+                    onChange={(e) => dispatch(setSearchString(e.target.value))}
                     fullWidth
                     error={!!warning}
                     helperText={warning}
@@ -58,7 +53,7 @@ function HomePage() {
                     <Select
                         labelId="type-select-label"
                         value={type}
-                        onChange={(e) => setType(e.target.value)}
+                        onChange={(e) => dispatch(setType(e.target.value))}
                     >
                         <MenuItem value="movie">Movie</MenuItem>
                         <MenuItem value="series">TV Series</MenuItem>
@@ -69,7 +64,7 @@ function HomePage() {
                     label="Year"
                     variant="outlined"
                     value={year}
-                    onChange={(e) => setYear(e.target.value)}
+                    onChange={(e) => dispatch(setYear(e.target.value))}
                     fullWidth
                 />
                 <Button
@@ -84,7 +79,7 @@ function HomePage() {
             </div>
             {moviesStatus !== AsyncStatus.Loading
                 ? movies && totalResults ?
-                    <MovieTable movies={movies} setCurrentPage={setCurrentPage} currentPage={currentPage} totalResults={totalResults} />
+                    <MovieTable movies={movies} currentPage={currentPage} totalResults={totalResults} />
                     :
                     (<div className='error-message'>
                         {`${moviesError || "Some Error occured please refresh page"}`}

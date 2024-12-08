@@ -12,21 +12,24 @@ import {
   Paper,
   TablePagination,
 } from "@mui/material";
+import { useAppDispatch } from "../../redux/hooks";
+import { setCurrentPage } from "../../redux/slices";
 
 interface IMovieTableProps {
   movies: Movies
-  setCurrentPage: (page: string) => void
+
   currentPage: string
   totalResults: string
 }
 
-const MovieTable = ({ movies, setCurrentPage, currentPage, totalResults }: IMovieTableProps) => {
+const MovieTable = ({ movies, currentPage, totalResults }: IMovieTableProps) => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch()
 
   const rowsPerPage = 10
 
   const handleChangePage = (_: unknown, newPage: number) => {
-    setCurrentPage(String(newPage));
+    dispatch(setCurrentPage(String(newPage)));
   };
 
   const handleRowSelect = (imdbID: string) => {

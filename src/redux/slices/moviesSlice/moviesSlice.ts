@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import movieSlicesInitialState from "./initialState";
 import { movieAppApi } from "../../../api";
@@ -26,7 +26,23 @@ export const fetchMoviesThunk = createAsyncThunk(
 export const moviesSlice = createSlice({
   name: "movies",
   initialState: movieSlicesInitialState,
-  reducers: {},
+  reducers: {
+    setSearchString: (state, action: PayloadAction<string>) => {
+      state.searchString = action.payload;
+    },
+    setYear: (state, action: PayloadAction<string>) => {
+      state.year = action.payload;
+    },
+    setType: (state, action: PayloadAction<string>) => {
+      state.type = action.payload;
+    },
+    setCurrentPage: (state, action: PayloadAction<string>) => {
+      state.currentPage = action.payload;
+    },
+    setSelectedMovieImdbId: (state, action: PayloadAction<string | null>) => {
+      state.selectedMovieImdbId = action.payload;
+    },
+  },
 
   extraReducers: (builder) => {
     builder
@@ -49,5 +65,13 @@ export const moviesSlice = createSlice({
       });
   },
 });
+
+export const {
+  setSearchString,
+  setType,
+  setYear,
+  setCurrentPage,
+  setSelectedMovieImdbId,
+} = moviesSlice.actions;
 
 export default moviesSlice.reducer;
